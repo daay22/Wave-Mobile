@@ -6,6 +6,9 @@ import BathroomSelectionScreen from "./views/BathroomSelectionScreen.js"
 import ClubSearch from "./views/ClubSearch.js"
 import ClubDetails from "./views/ClubDetails.js"
 import ClubMain from "./views/ClubMain.js"
+import BarSelection from './views/BarSelection.js'
+import DrinkMenu from './views/DrinkMenu.js'
+import DrinkSelection from './views/DrinkSelection.js'
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -23,7 +26,11 @@ export default function App() {
         <Stack.Screen name="Bathroom Selection" component={BathroomSelectionScreen} />
         <Stack.Screen name="Club Search" component={ClubSearch} />
         <Stack.Screen name="Club Details" component={ClubDetails} />
-        <Stack.Screen name="Club Main" component={ClubMain} />        
+        <Stack.Screen name="Club Main" component={ClubMain} />  
+        <Stack.Screen name="Bar Selection" component={BarSelection} />   
+        <Stack.Screen name="Drink Menu" component={DrinkMenu} />  
+        <Stack.Screen name="Drink Selection" component={DrinkSelection} />    
+            
       </Stack.Navigator>
     </NavigationContainer>
     

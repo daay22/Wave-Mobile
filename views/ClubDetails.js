@@ -11,7 +11,7 @@ function ClubDetails({navigation}) {
         <Text>Create a component that will be the detail page of a Club</Text>
         <Text>Create a component that will be a list item for all data.</Text>
 
-        <Button title="Women's Bathroom" onPress={() => {navigation.navigate("Club Main")}}>Scan coming soon</Button>
+        <Button title="Club Main" onPress={() => {navigation.navigate("Club Main")}}>Scan coming soon</Button>
     </View>                                 
     );
   

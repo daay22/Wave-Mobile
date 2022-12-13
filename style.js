@@ -9,8 +9,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 40,
         backgroundColor:"red",
-        
-
+    },
+    header: {
+      fontSize: 32,
     },
     formLabel:{
         fontWeight: 'bold',

@@ -1,0 +1,1 @@
+export var DrinkTypes = {Cocktail:"Cocktail",Wine:"Wine",Beer:"Beer"}
