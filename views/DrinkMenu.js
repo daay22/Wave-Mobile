@@ -1,10 +1,12 @@
 import React from 'react';
-import { Button, View, Text, FlatList, SectionList, StyleSheet} from 'react-native';
+import {View, Text, SectionList} from 'react-native';
 import { Logs } from 'expo'
 import DrinkItem from '../component/DrinkItem'
 import styles from "../style.js"
 
 Logs.enableExpoCliLogging()
+
+///scrollToLocation Is the method to get to different headers.
 
 
 var testData = [{Name:"Vodka Cranberry",Cost:8.5, Description:"You know the vibes", type:"Cocktail"}, 
@@ -39,13 +41,13 @@ function DrinkMenu({navigation}) {
       );
 
     return (
-    <View>
+    <View style={{marginHorizontal:8}}>
         <SectionList 
             sections={DATA}
             keyExtractor={(item,index) => item+index}
             renderItem = {renderItem}
             renderSectionHeader = {({section: {title}}) => (
-                <Text style={styles.header}>{title}</Text>
+                <Text style={styles.headerText}>{title}</Text>
             )}
         />
     </View>                                 

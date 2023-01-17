@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Platform, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProfileScreen from "./views/ProfileScreen"
@@ -9,12 +9,15 @@ import ClubMain from "./views/ClubMain.js"
 import BarSelection from './views/BarSelection.js'
 import DrinkMenu from './views/DrinkMenu.js'
 import DrinkSelection from './views/DrinkSelection.js'
+import { FAB } from 'react-native-paper';
+import BathroomList from "./views/BathroomList.js"
+import CameraScanner from "./views/CameraScanner.js"
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
         <NavigationContainer>
-      <Stack.Navigator  initialRouteName='Profile Creation'>
+      <Stack.Navigator  initialRouteName='Club Search'>
         <Stack.Screen options={{
           headerStyle: {
             backgroundColor: '#4F47C7',
@@ -24,12 +27,29 @@ export default function App() {
           },
         }} headerStyle name="Profile Creation" component={ProfileScreen}/>
         <Stack.Screen name="Bathroom Selection" component={BathroomSelectionScreen} />
-        <Stack.Screen name="Club Search" component={ClubSearch} />
+        <Stack.Screen name="Club Search" component={ClubSearch}  options={({ navigation }) => ({
+              title: 'Smart Club',
+              headerRight: () => (
+                <FAB
+                size="small"
+                icon="barcode-scan"
+                style={styles.fab}
+                onPress={() => navigation.navigate("Camera Scanner")}/>
+              ),
+            })}>
+              
+        </Stack.Screen>
         <Stack.Screen name="Club Details" component={ClubDetails} />
-        <Stack.Screen name="Club Main" component={ClubMain} />  
+        <Stack.Screen name="Club Main" component={ClubMain}  options={({ route }) => ({ title: route.params.name })} />  
         <Stack.Screen name="Bar Selection" component={BarSelection} />   
         <Stack.Screen name="Drink Menu" component={DrinkMenu} />  
-        <Stack.Screen name="Drink Selection" component={DrinkSelection} />    
+        <Stack.Screen name="Drink Selection" component={DrinkSelection} 
+        options= {{headerShown:false}}/>    
+        <Stack.Screen name="Bathroom List" component={BathroomList} /> 
+        <Stack.Screen name="Camera Scanner" component={CameraScanner} />  
+
+
+        
             
       </Stack.Navigator>
     </NavigationContainer>
@@ -43,5 +63,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  fab: {
+    backgroundColor:"#4F47C7",
+ 
   },
 });

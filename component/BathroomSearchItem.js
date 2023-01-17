@@ -1,5 +1,11 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image, Dimensions,Button, TouchableOpacity,Alert } from 'react-native';
+import { Text, View, StyleSheet, Image, Dimensions, TouchableOpacity,Alert } from 'react-native';
+import { Card, Paragraph,Avatar } from 'react-native-paper';
+import { Logs } from 'expo'
+import { useEffect } from 'react';
+import {Genders} from "../StaticData"
+
+Logs.enableExpoCliLogging()
 
 function getPictureSize(){
   return {
@@ -9,19 +15,30 @@ function getPictureSize(){
 }
 
 
-function BathroomSearchItem({navigation}) {
+function BathroomSearchItem({data}) {
+
+  var icon=""
+  switch(data.item.Gender){
+    case Genders.Male:
+      icon ="human-male"
+      break;
+    case Genders.Female:
+      icon ="human-female"
+      break;
+    case Genders.Neutral:
+      icon ="human-male-female"
+      break;
+  } 
+  const LeftContent = props => <Avatar.Icon {...props} icon={icon} />
+
   return (
-    <TouchableOpacity onPress={()=>{navigation.navigate("Club Details")}} style={styles.object}>
-    <Image style={getPictureSize()} source={require('../assets/favicon.png')} />
-    <View style ={styles.textbox}>
-    <Text style={{fontWeight: 'bold',color:'#4F47C7'}}>1st floor Bathroom</Text>
-     <Text>Location of the Establishment1</Text>
-     <View style ={{flexDirection:"row"}}>
-      <Button title="Inside" onPress={() => {navigation.navigate("Club Main")}} style={styles.button} />
-      <Button title="Share" onPress={()=>{ Alert.alert("This should send a text message")}} style={styles.button}/>
-     </View>
-     </View>
-    </TouchableOpacity>
+    
+    <Card style={{marginVertical:2}} mode="elevated" elevated="5" >
+        <Card.Title left={LeftContent}  titleStyle={{fontWeight: 'bold',color:'#4F47C7'}} title={data.item.Name} />
+        <Card.Content>
+          <Paragraph>{data.item.Description}</Paragraph>
+        </Card.Content>
+      </Card>
   );
 }
 

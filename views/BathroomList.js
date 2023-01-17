@@ -1,21 +1,27 @@
-import React from 'react';
-import { Button, View, Text} from 'react-native';
-import { Logs } from 'expo'
+import React, { useState, useEffect} from 'react';
+import {View, StyleSheet, FlatList} from 'react-native';
+import BathroomSearchItem from "../component/BathroomSearchItem.js"
+import styles from '../style'
 
-Logs.enableExpoCliLogging()
 
-function BathroomList({navigation}) {
+var Data = [{ID:1,Name:"1st Floor Mens Bathroom",Gender: 1,Description:"In the back behind the bar to the left"},
+{ID:2,Name:"1st Floor Womens Bathroom",Gender: 2,Description:"In the back behind the bar to the right"},
+{ID:3,Name:"Rooftop Bathroom",Gender: 3,Description:"When first arriving up the stairs make a left and past the narrow hallway it will be on your right"}
+]
 
-    return (
-    <View>
-        <Text>Create a component that will be the Main Page for the club</Text>
-        <Text>Create a component that will be a list item for all data.</Text>
 
-        <Button title="Order a Drink" onPress={() => {navigation.navigate("ClubMain")}}></Button>
-        <Button title="Bathroom List" onPress={() => {navigation.navigate("ClubMain")}}></Button>
-    </View>                                 
-    );
-  
+function BathroomList({}) {
+
+  return (
+    <View style={[styles.inClubContainer]}>
+      <FlatList
+        data={Data}
+        renderItem={(item) => <BathroomSearchItem data={item} />}
+        keyExtractor={(item) => item.ID}
+      />
+      
+    </View>
+  );
 }
 
 export default BathroomList;

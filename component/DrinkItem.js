@@ -30,14 +30,12 @@ export default ListItem;
 
 const styles = StyleSheet.create({
   object: {
-    marginLeft: Dimensions.get('window').width *.05,
     flexDirection: "row",
     marginVertical:15,
 
     
   },
   textbox:{
-    marginLeft:Dimensions.get('window').width *.05,
     flexDirection:"column",
     flex:1,
   },
