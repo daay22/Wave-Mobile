@@ -3,12 +3,16 @@ import http from "./base";
 class TodoTestService{
     constructor(){};
 
-    async getTodos(id=1) {
-        const url = `todos/${id}/`;
+    async getNearbyClubs(latitude,longitude) {
+        const url = `nearby_search`;
 
         var response = "";
         await http
             .get(url, {
+                params:{
+                    lat:latitude,
+                    long:longitude
+                },
                 cache: false
             })
             .then(responseData => {

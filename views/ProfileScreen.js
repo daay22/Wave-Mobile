@@ -21,7 +21,7 @@ function ProfileScreen({route, navigation}){
   
 
 
-  useEffect(() =>{
+  /*useEffect(() =>{
     service.getTodos(1)
     .then(data => {
       setTodo(data.title);
@@ -29,7 +29,7 @@ function ProfileScreen({route, navigation}){
     .catch(error =>{
       console.log("Error in todo.")
     })
-  })
+  })*/
 
 
 

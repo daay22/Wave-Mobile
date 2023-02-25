@@ -11,10 +11,10 @@ function getPictureSize(){
   };
 }
 
-function ListItem({data}) {
+function ListItem({data,shoppingCart,bar}) {
   const navigation = useNavigation()
   return (
-    <TouchableOpacity onPress={()=>{navigation.navigate({name:"Drink Selection",params:{DrinkChoice:data}})}} style={styles.object}>
+    <TouchableOpacity onPress={()=>{navigation.navigate({name:"Drink Selection",params:{DrinkChoice:data,ShoppingCart:shoppingCart,Bar:bar}})}} style={styles.object}>
     <View style ={styles.textbox}>
     <Text style={{fontWeight: 'bold',  fontSize:20  }}>{data.Name}</Text>
      <Text style ={{paddingVertical:7}}>{formatDollar(data.Cost)}</Text>

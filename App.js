@@ -2,22 +2,23 @@ import { StyleSheet, Platform, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProfileScreen from "./views/ProfileScreen"
-import BathroomSelectionScreen from "./views/BathroomSelectionScreen.js"
-import ClubSearch from "./views/ClubSearch.js"
-import ClubDetails from "./views/ClubDetails.js"
-import ClubMain from "./views/ClubMain.js"
-import BarSelection from './views/BarSelection.js'
-import DrinkMenu from './views/DrinkMenu.js'
-import DrinkSelection from './views/DrinkSelection.js'
+import BathroomSelectionScreen from "./views/InClubScreens/BathroomSelectionScreen.js"
+import ClubSearch from "./views/ClubSelectionScreens/ClubSearch.js"
+import ClubDetails from "./views/ClubSelectionScreens/ClubDetails.js"
+import ClubMain from "./views/ClubSelectionScreens/ClubMain.js"
+import BarSelection from './views/DrinkSelectionScreens/BarSelection.js'
+import DrinkMenu from './views/DrinkSelectionScreens/DrinkMenu.js'
+import DrinkSelection from './views/DrinkSelectionScreens/DrinkSelection.js' 
 import { FAB } from 'react-native-paper';
-import BathroomList from "./views/BathroomList.js"
+import BathroomList from "./views/InClubScreens/BathroomList.js"
 import CameraScanner from "./views/CameraScanner.js"
+import Checkout from './views/DrinkSelectionScreens/Checkout.js'
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
         <NavigationContainer>
-      <Stack.Navigator  initialRouteName='Club Search'>
+      <Stack.Navigator  initialRouteName='Club Details'>
         <Stack.Screen options={{
           headerStyle: {
             backgroundColor: '#4F47C7',
@@ -39,10 +40,13 @@ export default function App() {
             })}>
               
         </Stack.Screen>
-        <Stack.Screen name="Club Details" component={ClubDetails} />
+        <Stack.Screen name="Club Details" component={ClubDetails} options={{
+          title: '',
+        }} />
         <Stack.Screen name="Club Main" component={ClubMain}  options={({ route }) => ({ title: route.params.name })} />  
         <Stack.Screen name="Bar Selection" component={BarSelection} />   
         <Stack.Screen name="Drink Menu" component={DrinkMenu} />  
+        <Stack.Screen name="Checkout" component={Checkout} />  
         <Stack.Screen name="Drink Selection" component={DrinkSelection} 
         options= {{headerShown:false}}/>    
         <Stack.Screen name="Bathroom List" component={BathroomList} /> 

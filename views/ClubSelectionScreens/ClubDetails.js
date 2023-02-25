@@ -2,7 +2,7 @@ import React from 'react';
 import {View,Pressable, Button as Submit,TouchableOpacity,StyleSheet} from 'react-native';
 import { Logs } from 'expo'
 import { Text,Button } from 'react-native-paper';
-import styles from '../style';
+import styles from '../../style';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 Logs.enableExpoCliLogging()
@@ -33,7 +33,7 @@ function ClubDetails({navigation}) {
 
     </View> 
     <View style={[styles.footer]}>
-    <Pressable onPress={() =>  {navigation.navigate("Club Main", { name: 'Name of Club' })}} style={[styles.submitButton]}>
+    <Pressable onPress={() =>  {navigation.navigate("Club Main", { name: "The Park at 14th" })}} style={[styles.submitButton]}>
       <Text  style={{color:"white", fontSize:32}}>In the Club</Text>
     </Pressable>
     </View>

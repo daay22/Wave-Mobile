@@ -1,15 +1,16 @@
 import React from 'react';
 import { Logs } from 'expo'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import styles from "../style"
-import BarSelection from './BarSelection.js'
-import DrinkMenu from './DrinkMenu.js'
-import DrinkSelection from './DrinkSelection.js'
+import styles from "../../style"
+import BarSelection from '../DrinkSelectionScreens/BarSelection.js'
+import DrinkMenu from '../DrinkSelectionScreens/DrinkMenu.js'
+import DrinkSelection from '../DrinkSelectionScreens/DrinkSelection.js'
 import { FAB } from 'react-native-paper';
-import BathroomList from "./BathroomList.js"
+import BathroomList from "../InClubScreens/BathroomList.js"
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {Button} from "react-native-paper"
-import VIPService from "./VIPServices"
+import VIPService from "../VIPScreensScreens/VIPServices"
 
 Logs.enableExpoCliLogging()
 
@@ -21,9 +22,9 @@ function ClubMain() {
         <Tab.Navigator>
         <Tab.Screen labeled={false}  name="Bar Selection" component={BarSelection}
         options={{
-            tabBarLabel: 'Drinks',
+            tabBarLabel: 'Bar',
             tabBarIcon: ({}) => (
-                <Ionicons name="wine-sharp" color="#4F47C7" />
+                <Ionicons name="wine-sharp" class="tabIcon" size={24} color="#4F47C7" />
             ),
             headerShown:false
           }}
@@ -32,7 +33,7 @@ function ClubMain() {
         options={{
             tabBarLabel:"Bathroom",
             tabBarIcon: ({}) =>(
-                <Button icon="toilet"/>
+                <MaterialCommunityIcons name="toilet" size={24} color="#4F47C7" />
             ),
             headerShown:false
         }}/>
@@ -40,7 +41,7 @@ function ClubMain() {
         options={{
             tabBarLabel:"VIP",
             tabBarIcon: ({}) =>(
-                <Button icon="star"/>
+                <MaterialCommunityIcons name="star" size={24} color="#4F47C7" />
             ),
             headerShown:false
         }}/>
@@ -49,4 +50,4 @@ function ClubMain() {
   
 }
 
-export default ClubMain;
+export default ClubMain

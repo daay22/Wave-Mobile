@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
-import BathroomSearchItem from "../component/BathroomSearchItem.js"
-import styles from '../style'
+import BathroomSearchItem from "../../component/BathroomSearchItem.js"
+import styles from '../../style'
 
 
 var Data = [{ID:1,Name:"1st Floor Mens Bathroom",Gender: 1,Description:"In the back behind the bar to the left"},
