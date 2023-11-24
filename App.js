@@ -1,24 +1,30 @@
-import { StyleSheet, Platform, StatusBar } from 'react-native';
+// App.js
+
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
+import ResultScreen from './results';
+import BarcodeScannerScreen  from './BarcodeScanner.js';
 import ProfileScreen from "./views/ProfileScreen"
 import BathroomSelectionScreen from "./views/InClubScreens/BathroomSelectionScreen.js"
-import ClubSearch from "./views/ClubSelectionScreens/ClubSearch.js"
 import ClubDetails from "./views/ClubSelectionScreens/ClubDetails.js"
 import ClubMain from "./views/ClubSelectionScreens/ClubMain.js"
 import BarSelection from './views/DrinkSelectionScreens/BarSelection.js'
 import DrinkMenu from './views/DrinkSelectionScreens/DrinkMenu.js'
 import DrinkSelection from './views/DrinkSelectionScreens/DrinkSelection.js' 
-import { FAB } from 'react-native-paper';
 import BathroomList from "./views/InClubScreens/BathroomList.js"
-import CameraScanner from "./views/CameraScanner.js"
 import Checkout from './views/DrinkSelectionScreens/Checkout.js'
-const Stack = createNativeStackNavigator();
+import { MyProvider } from './store/context';
+
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
+    <MyProvider>
         <NavigationContainer>
-      <Stack.Navigator  initialRouteName='Club Details'>
+      <Stack.Navigator initialRouteName="Scanner">
+        <Stack.Screen name="Scanner"  options= {{headerShown:false}} component={BarcodeScannerScreen} />
         <Stack.Screen options={{
           headerStyle: {
             backgroundColor: '#4F47C7',
@@ -28,18 +34,6 @@ export default function App() {
           },
         }} headerStyle name="Profile Creation" component={ProfileScreen}/>
         <Stack.Screen name="Bathroom Selection" component={BathroomSelectionScreen} />
-        <Stack.Screen name="Club Search" component={ClubSearch}  options={({ navigation }) => ({
-              title: 'Smart Club',
-              headerRight: () => (
-                <FAB
-                size="small"
-                icon="barcode-scan"
-                style={styles.fab}
-                onPress={() => navigation.navigate("Camera Scanner")}/>
-              ),
-            })}>
-              
-        </Stack.Screen>
         <Stack.Screen name="Club Details" component={ClubDetails} options={{
           title: '',
         }} />
@@ -50,26 +44,9 @@ export default function App() {
         <Stack.Screen name="Drink Selection" component={DrinkSelection} 
         options= {{headerShown:false}}/>    
         <Stack.Screen name="Bathroom List" component={BathroomList} /> 
-        <Stack.Screen name="Camera Scanner" component={CameraScanner} />  
-
-
-        
-            
       </Stack.Navigator>
     </NavigationContainer>
+    </MyProvider>
     
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  fab: {
-    backgroundColor:"#4F47C7",
- 
-  },
-});

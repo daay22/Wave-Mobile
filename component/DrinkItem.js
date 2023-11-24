@@ -16,12 +16,12 @@ function ListItem({data,shoppingCart,bar}) {
   return (
     <TouchableOpacity onPress={()=>{navigation.navigate({name:"Drink Selection",params:{DrinkChoice:data,ShoppingCart:shoppingCart,Bar:bar}})}} style={styles.object}>
     <View style ={styles.textbox}>
-    <Text style={{fontWeight: 'bold',  fontSize:20  }}>{data.Name}</Text>
-     <Text style ={{paddingVertical:7}}>{formatDollar(data.Cost)}</Text>
-     <Text>{data.Description}</Text>
+    <Text style={{fontWeight: 'bold',  fontSize:20  }}>{data.name}</Text>
+     <Text style ={{paddingVertical:7}}>{formatDollar(data.cost)}</Text>
+     <Text>{data.description}</Text>
 
      </View>
-     <Image style={getPictureSize()} source={require('../assets/favicon.png')} />
+     <Image style={getPictureSize()} source={{uri: data.image}} />
     </TouchableOpacity> 
   );
 }
