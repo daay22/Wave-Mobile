@@ -20,8 +20,7 @@ export default function HomeScreen() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    // You can perform additional checks on the barcode data if needed
-    fetch("http://192.168.0.10:8000/api/v1/customer/65543d62086bbf3888fe2988")
+    fetch("http://192.168.4.72:8000/api/v1/venues/65543d62086bbf3888fe2988")
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error('Error: ',error));
@@ -41,7 +40,7 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <Text>Scan a Barcode or Enter a Code:</Text>
       <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+        onBarCodeScanned={handleBarCodeScanned}
         style={styles.scanner}
       />
       <TextInput

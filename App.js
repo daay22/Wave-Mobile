@@ -15,12 +15,18 @@ import DrinkSelection from './views/DrinkSelectionScreens/DrinkSelection.js'
 import BathroomList from "./views/InClubScreens/BathroomList.js"
 import Checkout from './views/DrinkSelectionScreens/Checkout.js'
 import { MyProvider } from './store/context';
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
+    <StripeProvider
+      publishableKey="pk_test_51LlDznHYav5iWqq6j2SnnvtwAZXvha9jZERJeilcJeRtpFoZ6eu21ZjiTGun7vvstGLaWsL4FwpsoQ1X25MXxM4W00dzk1zCx9"
+      //urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+      //merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}" // required for Apple Pay
+    >
     <MyProvider>
         <NavigationContainer>
       <Stack.Navigator initialRouteName="Scanner">
@@ -47,6 +53,6 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
     </MyProvider>
-    
+    </StripeProvider>
   );
 }

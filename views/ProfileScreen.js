@@ -30,8 +30,6 @@ function ProfileScreen({route, navigation}){
     })
   })*/
 
-
-
 return(
   <View style= {[styles.container]}>
     <Text style= {[styles.formLabel]}>Alias*</Text>

@@ -1,6 +1,8 @@
 export function formatDollar(value){
     var finalString ="$ "
+    console.log('value: '+value)
     var listByDec = value.toString().split('.')
+    console.log(listByDec)
     if(listByDec.length==1){
       finalString+=value+".00"
     }

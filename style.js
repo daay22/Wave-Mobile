@@ -25,8 +25,11 @@ const styles = StyleSheet.create({
       paddingVertical: 6,
       paddingBottom: 6,
       marginBottom:12,
-      backgroundColor:"#4F47C7"
+      backgroundColor:"#4F47C7",
+      paddingHorizontal:8
+      
     },
+
     bigHeaderText:{
         fontWeight: 'bold',
         fontSize: 40,
@@ -97,7 +100,8 @@ const styles = StyleSheet.create({
     },
      tabIcon: {
       fontSize:32
-    }
+    },
+    
   });
 
 

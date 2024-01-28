@@ -1,35 +1,49 @@
 import React, { useEffect,useState,useContext } from 'react';
-import {View, Text, SectionList,Pressable} from 'react-native';
+import {View, Text, SectionList,Pressable, ActivityIndicator} from 'react-native';
 import { Logs } from 'expo'
 import DrinkItem from '../../component/DrinkItem'
 import styles from "../../style.js"
 import { MyContext } from '../../store/context';
+import PaymentService from '../../api/payments'
+import BottomDrawer from '../../component/BottomDrawer';
+import { useFocusEffect } from '@react-navigation/native';
 
 Logs.enableExpoCliLogging()
-
-///scrollToLocation Is the method to get to different headers.
-
-
-var testData = [{Name:"Vodka Cranberry",Cost:8.5, Description:"You know the vibes", type:"Cocktail"}, 
-{Name:"Bug juice shot",Cost:10, Description:"mixed with the blood of our fallen ancestors, a sweet treat of vodka, and crickets",type:"Cocktail"}, 
-{Name:"Pinot Nior",Cost:10.50,type:"Wine"}, 
-{Name:"Moscato",Cost:10.50,type:"Wine"}, 
-{Name:"Pino Grigio",Cost:10.50,type:"Wine"}, 
-{Name:"Bud Light",Cost:4.99,type:"Beer"},
-{Name:"Budweiser",Cost:4.99,type:"Beer"},
-{Name:"Coors Light",Cost:4.99,type:"Beer"} ]
-
-
-
-
-
-
 
 
 function DrinkMenu({route,navigation}) {
 
   const [shoppingCart, setShoppingCart] = useState([]);
   const [bar, setBar] = useState(null);
+  const [isDrawerVisible, setDrawerVisible] = useState(false);
+  const [totalDrinks, setTotalDrinks] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  
+
+
+  const toggleDrawer = () => {
+    setDrawerVisible(!isDrawerVisible);
+  };
+
+
+  const closeDrawer = () => {
+    setDrawerVisible(false);
+  };
+
+  const deleteItem = (id) => {
+    const updateList = shoppingCart.filter((item) => item.ID !== id)
+    setShoppingCart(updateList)
+    if(updateList.length==0){
+      closeDrawer()
+    }
+ }
+
+  const updateCount = (id,value) => {
+    const updateList = shoppingCart.map((item) => item.ID ===id? {...item,['NumberOfDrinks']:value}:item)
+    setShoppingCart(updateList)
+  }
+
 
   const {state} = useContext(MyContext)
 
@@ -51,24 +65,49 @@ function DrinkMenu({route,navigation}) {
       data:""
     }
   ];
-
-
-  useEffect(()=>{
-      setShoppingCart(route.params.ShoppingCart)
-      setBar(route.params.Bar)
-       
-  },[])
-
-  function printCart(){
-    console.log(shoppingCart)
-  }
-
+  useFocusEffect(
+    React.useCallback(() => {
+      // Your effect logic for when the component gains focus
+      setShoppingCart(route.params.ShoppingCart);
+      setBar(route.params.Bar);
+  
+  
+      // Use the functional form of setShoppingCart
+      setShoppingCart((prevShoppingCart) => {
+        var total = 0;
+        var cost =0
+        for (var item = 0; item < prevShoppingCart.length; item++) {
+          total += prevShoppingCart[item].NumberOfDrinks;
+          cost += prevShoppingCart[item].NumberOfDrinks * prevShoppingCart[item].Cost
+        }
+        setTotalDrinks(total);
+  
+  
+        // Return the updated shoppingCart
+        return prevShoppingCart;
+      });
+  
+  
+      // Cleanup function (if needed)
+      return () => {
+        console.log('Cleanup or effect for component blur or unmount');
+        setLoading(false);
+      };
+    }, [route.params.ShoppingCart, route.params.Bar]) // Include dependencies in the dependency array
+  );
     
 
-    function goToCheckout(){
+    async function goToCheckout(){
+      setLoading(true);
+      toggleDrawer();
+      const returnJson = await PaymentService.createPaymentIntent()
+      //console.log(clientKey);
       var checkoutObject = {
         Bar:bar,
-        Cart: shoppingCart
+        Cart: shoppingCart,
+        ClientKey: returnJson.clientSecret,
+        EphemeralKey: returnJson.ephemeralKey,
+        Customer: returnJson.customer
       }
       navigation.navigate("Checkout", { Data: checkoutObject })
     }
@@ -79,6 +118,7 @@ function DrinkMenu({route,navigation}) {
 
     return (
     <View style={{flex:1,marginHorizontal:8}}>
+      {loading && <ActivityIndicator size="large" color="#0000ff" />}
         <SectionList 
             sections={DATA}
             keyExtractor={(item,index) => item+index}
@@ -90,11 +130,13 @@ function DrinkMenu({route,navigation}) {
         
       {shoppingCart.length>0 &&
         <View style={[styles.footer]}>
-        <Pressable onPress={() =>  {goToCheckout()}} style={[styles.submitButton]}>
-          <Text  style={{color:"white", fontSize:32}}>View Cart({shoppingCart.length})</Text>
+        <Pressable  onPress={toggleDrawer} style={[styles.submitButton]}>
+          <Text  style={{color:"white", fontSize:32}}>View Cart({totalDrinks})</Text>
         </Pressable>
         </View>
         }
+
+        <BottomDrawer updateCount={updateCount} deleteItem={deleteItem} bar = {route.params.Bar} shoppingCart = {shoppingCart} isVisible = {isDrawerVisible} onClose = {closeDrawer} goToCheckout={goToCheckout}/>
         
     </View>                                 
     );
